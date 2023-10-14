@@ -4,15 +4,19 @@ import { checkValidData, checkValidDataWithName } from "../utils/validate";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const email = useRef(null);
   const password = useRef(null);
@@ -55,7 +59,35 @@ const Login = () => {
           const user = userCredential.user;
           console.log(user);
           // As this is a promise so if the request is succesfull then it will give us a user object & it will sign in automatically.
-          navigate("/browse");
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL: "https://avatars.githubusercontent.com/u/105854654?v=4",
+          })
+            .then(() => {
+              // Profile updated!
+              // ...
+              //why dispatch is neeeded here?
+              // if you didnt dispatch addUser after updating the profile your image & name will not be reflected in appDistributionOrigin.Check this - sign up => go to redux extension & check.
+
+              const { uid, email, displayName, photoURL } = auth?.currentUser;
+
+              // const { uid, email, displayName, photoURL } = user
+              // This will not work because in user values are not updated.
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
+              navigate("/browse");
+            })
+            .catch((error) => {
+              // An error occurred
+              // ...
+              setErrorMessage(error.message);
+            });
         })
         .catch((error) => {
           const errorCode = error.code;

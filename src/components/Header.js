@@ -2,10 +2,12 @@ import React from "react";
 import { auth } from "../utils/firebase";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const navigate = useNavigate();
-
+  const user = useSelector((store) => store.user);
+  console.log(user);
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
@@ -25,16 +27,21 @@ const Header = () => {
         alt="netlfix-logo"
       />
 
-      <div className="flex p-2">
-        <img
-          className="w-12 h-12"
-          alt="usericon"
-          src="https://occ-0-6247-2164.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABdpkabKqQAxyWzo6QW_ZnPz1IZLqlmNfK-t4L1VIeV1DY00JhLo_LMVFp936keDxj-V5UELAVJrU--iUUY2MaDxQSSO-0qw.png?r=e6e"
-        />
-        <button onClick={handleSignOut} className="font-bold text-white ">
-          (Sign Out)
-        </button>
-      </div>
+      {/* Display this div only when someone is signed in */}
+      {user && (
+        <div className="flex p-2">
+          <img
+            className="w-12 h-12"
+            alt="usericon"
+            // src="https://occ-0-6247-2164.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABdpkabKqQAxyWzo6QW_ZnPz1IZLqlmNfK-t4L1VIeV1DY00JhLo_LMVFp936keDxj-V5UELAVJrU--iUUY2MaDxQSSO-0qw.png?r=e6e"
+
+            src={user?.photoURL}
+          />
+          <button onClick={handleSignOut} className="font-bold text-white ">
+            (Sign Out)
+          </button>
+        </div>
+      )}
     </div>
   );
 };
