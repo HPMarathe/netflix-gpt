@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { API_OPTIONS } from "../utils/constants";
+import React from "react";
+import { useSelector } from "react-redux";
+import useMovieTrailer from "../hooks/useMovieTrailer";
 
 // sample response from tmdb website for request from movies id
 // we have to filter out trailer videos & display it
@@ -322,38 +323,19 @@ import { API_OPTIONS } from "../utils/constants";
 // }
 
 const VideoBackground = ({ movieId }) => {
-  // fetch trailer video
+  // subscribing to store
+  const trailerVideo = useSelector((store) => store.movies?.trailerVideo);
+  useMovieTrailer(movieId);
 
-  // one way to set trailer key
-  const [trailerKey, setTrailerKey] = useState(null);
-  const getMovieVideos = async () => {
-    const data = await fetch(
-      "https://api.themoviedb.org/3/movie/926393/videos?language=en-US",
-      API_OPTIONS
-    );
-    const json = await data.json();
-    console.log(json);
-    const filterData = json.results.filter((video) => video.type == "Trailer");
-
-    // As this filterdata have multiple trailer videos we are taking first trailer.Second case is if there are no filter data then just print first result as trailer.
-    const trailer = filterData.length ? filterData[0] : json.results[0];
-    setTrailerKey(trailer?.key);
-    console.log(trailer);
-    // In every result you will get a youtube key.
-    // You can use this key to show your trailer.
-    // go to any youtube video & click on share there you will get embeded video,Copy & paste it in return & change the key accordingly.
-    //        src="https://www.youtube.com/embed/trailer.key"
-  };
-
-  useEffect(() => {
-    getMovieVideos();
-  }, []);
   return (
-    <div>
+    <div className="w-screen">
       <iframe
-        width="560"
-        height="315"
-        src={"https://www.youtube.com/embed/" + trailerKey}
+        className="w-screen aspect-video"
+        src={
+          "https://www.youtube.com/embed/" +
+          trailerVideo?.key +
+          "?autoplay=1&mute=1"
+        }
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       ></iframe>
