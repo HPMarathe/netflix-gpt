@@ -321,12 +321,12 @@ import useMovieTrailer from "../hooks/useMovieTrailer";
 //     }
 //   ]
 // }
+//
 
 const VideoBackground = ({ movieId }) => {
   // subscribing to store
   const trailerVideo = useSelector((store) => store.movies?.trailerVideo);
   useMovieTrailer(movieId);
-
   return (
     <div className="w-screen">
       <iframe
@@ -344,3 +344,5 @@ const VideoBackground = ({ movieId }) => {
 };
 
 export default VideoBackground;
+
+// https://developer.themoviedb.org/reference/movie-videos
