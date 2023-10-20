@@ -4,11 +4,15 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
-import { LOGO } from "../utils/constants";
+import { LOGO, SUPPORTED_LANGUAGES } from "../utils/constants";
+import { toggleGptSearchView } from "../utils/gptSlice";
+import { changeLanguage } from "../utils/configSlice";
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const GptSearch = useSelector((store) => store.gpt.showGptSearch);
 
   const user = useSelector((store) => store.user);
   // console.log(user);
@@ -51,6 +55,15 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
 
+  const handleGPTSearchClick = () => {
+    //Toggle GPTSearch Page
+    dispatch(toggleGptSearchView());
+  };
+
+  const handleLanguageChange = (e) => {
+    // console.log(e.target.value);
+    dispatch(changeLanguage(e.target.value));
+  };
   return (
     <div className="absolute px-8 py-2 bg-gradient-to-b from-black z-10 w-screen flex justify-between">
       <img className=" w-44" src={LOGO} alt="netlfix-logo" />
@@ -58,6 +71,29 @@ const Header = () => {
       {/* Display this div only when someone is signed in */}
       {user && (
         <div className="flex p-2">
+          {GptSearch && (
+            <select
+              onChange={handleLanguageChange}
+              className="p-2 m-2 bg-black text-white border border-white"
+            >
+              {/* <option value="en">English</option>
+            <option value="hi">Hindi</option>
+            <option value="spanish">Spanish</option> */}
+              {SUPPORTED_LANGUAGES.map((lang) => (
+                <option key={lang.identifier} value={lang.identifier}>
+                  {lang.name}
+                </option>
+              ))}
+            </select>
+          )}
+
+          <button
+            className="py-2 px-4 mx-4 my-2 bg-red-600 text-white
+            rounded-lg"
+            onClick={handleGPTSearchClick}
+          >
+            {GptSearch ? "Home" : "GPT Search"}
+          </button>
           <img
             className="w-12 h-12"
             alt="usericon"

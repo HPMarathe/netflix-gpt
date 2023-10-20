@@ -42,6 +42,10 @@
 - Made the Browsre page amazing with Tailwind CSS
 - usePopularMovies,useTopRatedMovies & useUpcomingMovies Custom hook
 - removed horizontal & vertical scrollbar - index.css
+- GPT Search Feature
+  GPT Search Page
+- GPT Search Bar
+- (BONUS) Multi-language Feature in our App
 
 # Features
 
