@@ -2,6 +2,7 @@ import React from "react";
 import Login from "./Login";
 import Browse from "./Browse";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import WatchMovieTrailer from "./WatchMovieTrailer";
 
 const Body = () => {
   // Always use hooks in starting of the component.
@@ -14,6 +15,10 @@ const Body = () => {
     {
       path: "/browse",
       element: <Browse />,
+    },
+    {
+      path: "/movie/:id",
+      element: <WatchMovieTrailer />,
     },
   ]);
 
