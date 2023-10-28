@@ -16,7 +16,7 @@ const WatchMovieTrailer = () => {
   //   const trailerVideo = useSelector((store) => store.movies?.trailerVideo);
 
   return (
-    <div className="w-screen">
+    <div className="w-screen bg-black">
       <iframe
         className="w-screen aspect-video h-screen"
         src={

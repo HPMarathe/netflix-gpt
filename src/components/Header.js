@@ -65,12 +65,12 @@ const Header = () => {
     dispatch(changeLanguage(e.target.value));
   };
   return (
-    <div className="absolute px-8 py-2 bg-gradient-to-b from-black z-10 w-screen flex justify-between">
-      <img className=" w-44" src={LOGO} alt="netlfix-logo" />
+    <div className="absolute px-8 py-2 bg-gradient-to-b from-black z-10 w-screen flex flex-col md:flex-row justify-between ">
+      <img className=" w-44 mx-auto md:mx-0" src={LOGO} alt="netlfix-logo" />
 
       {/* Display this div only when someone is signed in */}
       {user && (
-        <div className="flex p-2">
+        <div className="flex p-2 justify-between">
           {GptSearch && (
             <select
               onChange={handleLanguageChange}
@@ -95,14 +95,18 @@ const Header = () => {
             {GptSearch ? "Home" : "GPT Search"}
           </button>
           <img
-            className="w-12 h-12"
+            className=" hidden md:block w-12 h-10 mt-2"
             alt="usericon"
             // src="https://occ-0-6247-2164.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABdpkabKqQAxyWzo6QW_ZnPz1IZLqlmNfK-t4L1VIeV1DY00JhLo_LMVFp936keDxj-V5UELAVJrU--iUUY2MaDxQSSO-0qw.png?r=e6e"
 
             src={user?.photoURL}
           />
-          <button onClick={handleSignOut} className="font-bold text-white ">
-            (Sign Out)
+          <button
+            onClick={handleSignOut}
+            className=" py-2 px-4 mx-4 my-2 bg-red-600 text-white
+            rounded-lg "
+          >
+            Sign Out
           </button>
         </div>
       )}
