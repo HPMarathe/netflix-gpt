@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import React from "react";
 
 const gptSlice = createSlice({
   name: "gpt",
@@ -18,9 +17,15 @@ const gptSlice = createSlice({
       state.movieNames = movieNames;
       state.movieResults = movieResults;
     },
+    clearGptMovieResults: (state) => {
+      // const { movieNames, movieResults } = action.payload;
+      state.movieNames = null;
+      state.movieResults = null;
+    },
   },
 });
 
-export const { toggleGptSearchView, addGptMovieResult } = gptSlice.actions;
+export const { toggleGptSearchView, addGptMovieResult, clearGptMovieResults } =
+  gptSlice.actions;
 
 export default gptSlice.reducer;

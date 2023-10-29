@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
 import { LOGO, SUPPORTED_LANGUAGES } from "../utils/constants";
-import { toggleGptSearchView } from "../utils/gptSlice";
+import { clearGptMovieResults, toggleGptSearchView } from "../utils/gptSlice";
 import { changeLanguage } from "../utils/configSlice";
 
 const Header = () => {
@@ -25,6 +25,8 @@ const Header = () => {
         navigate("/error");
         // An error happened.
       });
+
+    dispatch(clearGptMovieResults());
   };
 
   //onAuthStateChanged should be called only once.Hence it is put in useeffect.This functionality calls when sign in,sign up & sign out happens.It is similar to event listener.
@@ -58,6 +60,7 @@ const Header = () => {
   const handleGPTSearchClick = () => {
     //Toggle GPTSearch Page
     dispatch(toggleGptSearchView());
+    GptSearch && dispatch(clearGptMovieResults());
   };
 
   const handleLanguageChange = (e) => {
