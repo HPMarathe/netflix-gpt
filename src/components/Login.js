@@ -106,21 +106,22 @@ const Login = () => {
           // ...
         })
         .catch((error) => {
+          // console.log(error);
           const errorCode = error.code;
           const errorMessage = error.message;
-          setErrorMessage(errorCode + "-" + errorMessage);
+          setErrorMessage("Please enter correct username or password.");
         });
     }
   };
   return (
     <div>
       <Header />
-      <div className="absolute">
+      <div className="fixed">
         <img className="h-screen w-screen object-cover" src={BG_URL} alt="" />
       </div>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="bg-black absolute w-full md:w-3/12 p-12 my-36 mx-auto right-0 left-0 bg-opacity-80 rounded-lg"
+        className="bg-black absolute w-full sm:w-7/12 md:w-4/12 p-12 my-36 mx-auto right-0 left-0 bg-opacity-80 rounded-lg"
       >
         <h1 className="font-bold text-white text-3xl">
           {isSignInForm ? "Sign In" : "Sign Up"}
@@ -130,20 +131,20 @@ const Login = () => {
             type="text"
             ref={name}
             placeholder="Full Name"
-            className="p-4 my-4 w-full bg-gray-700"
+            className="p-4 my-4 w-full bg-neutral-700"
           />
         )}
         <input
           type="text"
           ref={email}
           placeholder="Email Address"
-          className="p-4 my-4 w-full bg-gray-700"
+          className="p-4 my-4 w-full bg-neutral-700"
         />
         <input
           type="text"
           ref={password}
           placeholder="Password"
-          className="p-4 my-4 w-full bg-gray-700"
+          className="p-4 my-4 w-full bg-neutral-700"
         />
         {/* When you click on button in the form it will bydefault call onsubmit method as it is trying tto submit a form & this will refresh the page.To avoid this do this on form -   onSubmit={(e) => e.preventDefault()}*/}
         <p className="font-bold text-red-600 px-4 py-2 text-lg">
@@ -157,8 +158,8 @@ const Login = () => {
         </button>
         <p onClick={toggleSignInForm} className="text-white cursor-pointer">
           {isSignInForm
-            ? "New to Netflix? Sign Up Now"
-            : "Aldready Registered? Sign In Now"}
+            ? "New to Netflix? Sign Up Now."
+            : "Aldready Registered? Sign In Now."}
         </p>
       </form>
     </div>

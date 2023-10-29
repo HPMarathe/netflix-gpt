@@ -5,9 +5,10 @@ export const checkValidData = (email, password) => {
   const isPasswordValid =
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(password);
 
-  if (!isEmailValid) return "Email ID is not Valid";
+  if (!isEmailValid) return "Email ID is not valid.";
 
-  if (!isPasswordValid) return "Password is not Valid";
+  if (!isPasswordValid)
+    return "Password length should be minimum 8 characters. Password should contain at least one lowercase letter(a-z), one uppercase letter(A-Z) & one special character ( @, #, %, &, !, $, etc…).";
 
   return null;
 };
@@ -22,11 +23,13 @@ export const checkValidDataWithName = (name, email, password) => {
   const isPasswordValid =
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(password);
 
-  if (!isNameValid) return "Name is not Valid";
+  if (!isNameValid)
+    return "Name is not valid. Please enter your first & last name.";
 
-  if (!isEmailValid) return "Email ID is not Valid";
+  if (!isEmailValid) return "Email ID is not valid.";
 
-  if (!isPasswordValid) return "Password is not Valid";
+  if (!isPasswordValid)
+    return "Password length should be minimum 8 characters. Password should contain at least one lowercase letter(a-z), one uppercase letter(A-Z) & one special character.";
 
   return null;
 };

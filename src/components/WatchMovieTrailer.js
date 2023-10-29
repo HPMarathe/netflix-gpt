@@ -5,7 +5,7 @@ import useWatchMovieTrailer from "../hooks/useWatchMovieTrailer";
 
 const WatchMovieTrailer = () => {
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
 
   //   useMovieTrailer(id);
   useWatchMovieTrailer(id);
@@ -22,10 +22,11 @@ const WatchMovieTrailer = () => {
         src={
           "https://www.youtube.com/embed/" +
           watchMovieTrailerVideo?.key +
-          "?autoplay=1&mute=1"
+          "?autoplay=1"
         }
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
       ></iframe>
     </div>
   );

@@ -8,17 +8,17 @@ const MainContainer = () => {
   const movies = useSelector((store) => store.movies?.nowPlayingMovies);
 
   // implementing early return here is necessary bcoz if we didn do it we will get an error as movies[0]=null till it fetches the movies.
-  // if (!movies) return;
+  // if (!movies) return ;
 
   if (movies == null) return;
-  const mainMovie = movies[1];
+  const mainMovie = movies[0];
 
   // console.log(mainMovie);
 
   const { original_title, overview, id } = mainMovie;
 
   return (
-    <div className="pt-[30%] bg-black md:pt-0">
+    <div className="pt-[35%] bg-black md:pt-0">
       <VideoTitle title={original_title} overview={overview} movieId={id} />
       <VideoBackground movieId={id} />
     </div>
